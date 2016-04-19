@@ -84,6 +84,14 @@
 	<logger name="org.eclipse.jetty">
 		<level value="warn" />
 	</logger>
+
+	<logger name="org.jivesoftware.openfire.plugin.SpiritGuidePlugin">
+		<level value="debug" />
+	</logger>
+
+	<logger name="org.jivesoftware.openfire.plugin.spiritguide">
+		<level value="debug" />
+	</logger>
 	
    	<root>
 		<level value="info" />

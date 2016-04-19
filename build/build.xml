@@ -867,6 +867,14 @@
 
     </target>
 
+    <!-- spiritGuidePlugin =========================================================================== -->
+    <target name="spiritGuidePlugin">
+        <!-- Copy admin plugin source (if any) -->
+        <copy todir="${plugin.dest.dir}">
+            <fileset dir="${src.dir}/plugins" includes="spiritGuide/*.*"/>
+        </copy>
+    </target>
+
     <target name="spank">
         <mkdir dir="${target.openfireHome}/resources/spank"/>
         <copy todir="${target.openfireHome}/resources/spank">
@@ -1247,7 +1255,7 @@
         <!-- Get a list of subdirs of the main plugins dir. This tells us which plugins to make. Exclude the
              admin plugin (which is created by a different Ant task) as well as the clustering plugin (which
              requires non-free JAR-files to be added to its library path, which most users won't do). -->
-        <subdirinfo dir="${plugin.src.dir}" property="dirlist" ifexists="plugin.xml" except="admin,clustering"/>
+        <subdirinfo dir="${plugin.src.dir}" property="dirlist" ifexists="plugin.xml" except="admin,avatarResizer,bookmarks,broadcast,callbackOnOffline,clientControl,clustering,contentFilter,dbaccess,emailListener,emailOnAway,fastpath,gojara,hazelcast,jingleNodes,jmxweb,justmarried,kraken,loadStats,monitoring,motd,mucservice,nodejs,nonSaslAuthentication,packetFilter,presence,rayo,registration,restAPI,search,sip,stunserver,subscription,userCreation,userImportExport,userservice,websocket,xmldebugger"/>
 
         <antcall target="-plugins-impl"/>
 
