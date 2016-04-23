@@ -1,0 +1,7 @@
+sgjabber: 
+  image: mdillon/postgis
+  ports: 
+    - "5432:5432"
+  environment:
+    - POSTGRES_DB=sgjabber
+    - POSTGRES_PASSWORD=secret
