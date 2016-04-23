@@ -16,7 +16,7 @@ import org.jivesoftware.openfire.muc.MultiUserChatManager;
 import org.jivesoftware.openfire.muc.spi.LocalMUCRole;
 import org.jivesoftware.openfire.plugin.spiritguide.Bot;
 import org.jivesoftware.openfire.plugin.spiritguide.BotMessage;
-import org.jivesoftware.openfire.plugin.spiritguide.SchedulerBot;
+import org.jivesoftware.openfire.plugin.spiritguide.EventsBot;
 import org.jivesoftware.openfire.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +55,7 @@ public class SpiritGuidePlugin implements Plugin, PacketInterceptor {
 
     public SpiritGuidePlugin() {
         bots = new ArrayList<Bot>();
-        bots.add(new SchedulerBot());
+        bots.add(new EventsBot());
 
         interceptorManager = InterceptorManager.getInstance();
         domainFrom = new JID(XMPPServer.getInstance().getServerInfo().getXMPPDomain()).getDomain();
