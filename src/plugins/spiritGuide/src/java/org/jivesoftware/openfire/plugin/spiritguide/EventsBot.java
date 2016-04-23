@@ -6,9 +6,9 @@ public class EventsBot implements Bot {
 
     public BotMessage getResponseMessage(String message) {
         if(message.contains("sauna")) {
-            return new BotMessage("#/sauna.html", "events_bot");
+            return new BotMessage("#http://jabber.igoplaces.com/sauna.html", "events_bot");
         } if(message.contains("dinner")) {
-            return new BotMessage("#/dinner.html", "events_bot");
+            return new BotMessage("#http://jabber.igoplaces.com/dinner.html", "events_bot");
         } else {
             return null;
         }
