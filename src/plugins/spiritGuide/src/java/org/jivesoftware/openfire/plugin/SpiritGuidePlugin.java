@@ -1,5 +1,6 @@
 package org.jivesoftware.openfire.plugin;
 
+import org.apache.commons.lang.StringUtils;
 import org.dom4j.Attribute;
 import org.dom4j.Element;
 import org.jivesoftware.openfire.MessageRouter;
@@ -91,13 +92,34 @@ public class SpiritGuidePlugin implements Plugin, PacketInterceptor {
 
             Message original = (Message)packet;
 
-            String lang = "ru";//original.getElement().attributeValue("sgLang");
+            String lang = original.getElement().element("body").attributeValue("xml:lang");
 
-            if(true/*lang != null && !lang.equalsIgnoreCase("en")*/) {
-                String localizedMsg = translater.translate(original.getBody(), lang);
+            Log.debug("Lang" + lang);
 
-                original.getElement().addElement("locale").addText( original.getElement().elementText("body") );
-                original.getElement().element("body").setText(localizedMsg);
+
+            String attrs = "";
+            for(Object o : original.getElement().element("body").attributes()){
+                attrs += o.toString();
+                attrs += "\n";
+            }
+
+            Log.debug("" + attrs);
+            lang = "ru";
+            //lang = "ru";//original.getElement().attributeValue("sgLang");
+
+            if(lang != null) {
+                String localizedMsg;
+                if(lang.equalsIgnoreCase("en")) {
+                    localizedMsg = original.getElement().elementText("body");
+                } else {
+                    localizedMsg = translater.translate(original.getBody(), lang);
+                }
+
+
+                //localizedMsg = translater.translate(original.getBody(), lang);
+
+                original.getElement().addElement("body").setText( localizedMsg );
+//                original.getElement().element("body").setText(localizedMsg);
 
                 if (Log.isDebugEnabled()) {
                     Log.debug("Localized message: " + localizedMsg);
@@ -146,7 +168,11 @@ public class SpiritGuidePlugin implements Plugin, PacketInterceptor {
     }
 
     private boolean isValidTargetPacket(Packet packet, boolean read, boolean processed) {
-        return  !processed && read && (packet instanceof Message) && !(isIgnoreBot( packet.getElement() ));
+        return  !processed
+                && read
+                && (packet instanceof Message)
+                && !(isIgnoreBot( packet.getElement() ))
+                && packet.getFrom().toString().contains("akoren");
     }
 
     private boolean isIgnoreBot(Element el) {
